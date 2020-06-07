@@ -2,7 +2,8 @@
 
 set +e
 
-source ./setenv.sh
+source ./setenv.sh &> /dev/null
+source ./i9m.app/setenv.sh &> /dev/null
 
 docker node ls &> /dev/null
 
