@@ -4,7 +4,7 @@
 VERSION="3.1.0.RC1"
 
 # specify additional features
-FEATURES="gc"
+FEATURES="gc,conagent"
 
 # specify Docker GC params if GC enabled (min)
 IMAGE_GRACE_PERIOD=10080
