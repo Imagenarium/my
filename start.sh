@@ -24,6 +24,12 @@ export SPRING_PROFILES_ACTIVE=${FEATURES}
 echo "Login to Imagenarium registry..."
 docker login registry.gitlab.com -u gitlab+deploy-token-10171 -p eKUxz4BsWFE95T9WNVV2
 
+curNode=$(docker info | grep NodeID | head -n1 | awk '{print $2;}')
+
+if [[ -z ${EXTERNAL_IMAGENARIUM_IP} ]]; then
+  docker node update --label-add _externalUrl=${EXTERNAL_IMAGENARIUM_IP} $curNode
+fi
+
 docker service create --name clustercontrol \
 --endpoint-mode dnsrr \
 --with-registry-auth \

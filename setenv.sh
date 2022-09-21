@@ -1,10 +1,12 @@
 #!/bin/bash
 
 # specify Imagenarium version
-VERSION="3.2.0.RC1"
+VERSION="img4"
 
 # specify additional features
 FEATURES="gc,conagent"
+
+EXTERNAL_IMAGENARIUM_IP="127.0.0.1"
 
 # specify Docker GC params if GC enabled (min)
 IMAGE_GRACE_PERIOD=10080
