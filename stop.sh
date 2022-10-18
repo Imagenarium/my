@@ -10,6 +10,10 @@ echo "Stopping Console Agent..."
 docker service rm $(docker service ls --filter name=console-agent -q) &> /dev/null
 echo "Done"
 
+echo "Stopping File Agent..."
+docker service rm $(docker service ls --filter name=file-agent -q) &> /dev/null
+echo "Done"
+
 echo "Stopping Auth sync..."
 docker service rm authsync-agent &> /dev/null
 echo "Done"
@@ -24,4 +28,8 @@ echo "Done"
 
 echo "Stopping Swarm Proxy..."
 docker service rm swarmproxy-agent &> /dev/null
+echo "Done"
+
+echo "Stopping StandBy..."
+docker service rm standby-agent &> /dev/null
 echo "Done"
