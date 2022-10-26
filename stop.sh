@@ -33,3 +33,11 @@ echo "Done"
 echo "Stopping StandBy..."
 docker service rm standby-agent &> /dev/null
 echo "Done"
+
+echo "Stopping Volume Controller..."
+docker service rm volumecontroller &> /dev/null
+echo "Done"
+
+echo "Stopping Volume Agent..."
+docker service rm volume-agent &> /dev/null
+echo "Done"
