@@ -28,6 +28,7 @@ echo "Login to Imagenarium registry..."
 docker login registry.gitlab.com -u gitlab+deploy-token-10171 -p eKUxz4BsWFE95T9WNVV2
 
 curNode=$(docker info | grep NodeID | head -n1 | awk '{print $2;}')
+docker node update --label-add imagenarium=true $curNode
 
 docker service create --name clustercontrol \
 --endpoint-mode dnsrr \
@@ -42,8 +43,9 @@ docker service create --name clustercontrol \
 -e "NETWORK_GRACE_PERIOD=${NETWORK_GRACE_PERIOD}" \
 -e "JAVA_OPTS=${JAVA_OPTS}" \
 -e "AGENT_JAVA_OPTS=${AGENT_JAVA_OPTS}" \
+-e "DOCKER_CONFIG_HOME=${HOME}" \
 --mount "type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock" \
---mount "type=bind,source=/root,target=/root" \
+--mount "type=bind,source=${HOME}/.docker,target=/root/.docker" \
 --mount "type=bind,source=${PWD}/static,target=/classes/static" \
 --mount "type=bind,source=${PWD}/templates,target=/classes/templates" \
 --mount "type=volume,destination=/tmp" \

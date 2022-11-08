@@ -40,9 +40,9 @@ docker service create --name clustercontrol \
 -e "NETWORK_GRACE_PERIOD=${NETWORK_GRACE_PERIOD}" \
 -e "JAVA_OPTS=${JAVA_OPTS}" \
 -e "AGENT_JAVA_OPTS=${AGENT_JAVA_OPTS}" \
--e "DOCKER_CONFIG_HOME=/root" \
+-e "DOCKER_CONFIG_HOME=${HOME}" \
 --mount "type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock" \
---mount "type=bind,source=/root,target=/root" \
+--mount "type=bind,source=${HOME}/.docker,target=/root/.docker" \
 --mount "type=volume,destination=/tmp" \
 registry.gitlab.com/imagenarium/distrib/clustercontrol:${VERSION}
 
