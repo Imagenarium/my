@@ -18,8 +18,13 @@ if [[ "${status}" != "0" ]]; then
 fi
 
 if [ ! "$(docker network ls | grep "\sclustercontrol-net\s")" ];then
-  echo "Creating network..."
+  echo "Creating network clustercontrol-net..."
   docker network create --driver overlay --attachable clustercontrol-net
+fi
+
+if [ ! "$(docker network ls | grep "\srunner-net\s")" ];then
+  echo "Creating network runner-net..."
+  docker network create --driver overlay --attachable runner-net
 fi
 
 export SPRING_PROFILES_ACTIVE=${FEATURES}
