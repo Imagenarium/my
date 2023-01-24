@@ -33,7 +33,7 @@ curNode=$(docker info | grep NodeID | head -n1 | awk '{print $2;}')
 docker node update --label-add imagenarium=true $curNode
 docker node update --label-add _dataPathAddr=172.17.0.1 $curNode
 
-mkdir $HOME/.img || true &> /dev/null
+mkdir $HOME/.img &> /dev/null || true
 
 docker service create --name clustercontrol \
 --endpoint-mode dnsrr \
