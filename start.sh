@@ -48,6 +48,10 @@ docker service create --name clustercontrol \
 -e "JAVA_OPTS=${JAVA_OPTS}" \
 -e "AGENT_JAVA_OPTS=${AGENT_JAVA_OPTS}" \
 -e "DOCKER_CONFIG_HOME=$HOME/.img" \
+--container-label "co.elastic.logs/enabled=true" \
+--container-label "co.elastic.logs/system=true" \
+--container-label "co.elastic.logs/replicas=1" \
+--container-label "co.elastic.logs/serviceName=clustercontrol" \
 --mount "type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock" \
 --mount "type=bind,source=$HOME/.img,target=/root/.docker" \
 --mount "type=volume,destination=/tmp" \
