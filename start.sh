@@ -19,9 +19,9 @@ if [ ! "$(docker network ls | grep "\sclustercontrol-net\s")" ];then
   docker network create --driver overlay --attachable clustercontrol-net
 fi
 
-if [ ! "$(docker network ls | grep "\srunner-net\s")" ];then
+if [ ! "$(docker network ls | grep "\sdockersocketproxy-net\s")" ];then
   echo "Creating network runner-net..."
-  docker network create --driver overlay --attachable runner-net
+  docker network create --driver overlay --attachable dockersocketproxy-net
 fi
 
 export SPRING_PROFILES_ACTIVE=${FEATURES}
