@@ -20,7 +20,7 @@ if [ ! "$(docker network ls | grep "\sclustercontrol-net\s")" ];then
 fi
 
 if [ ! "$(docker network ls | grep "\sdockersocketproxy-net\s")" ];then
-  echo "Creating network runner-net..."
+  echo "Creating network dockersocketproxy-net..."
   docker network create --driver overlay --attachable dockersocketproxy-net
 fi
 
