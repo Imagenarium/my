@@ -16,4 +16,4 @@ NETWORK_GRACE_PERIOD=1440
 JAVA_OPTS=-Xmx512m
 
 # specify heap size for agents
-AGENT_JAVA_OPTS=-Xmx64m
+AGENT_JAVA_OPTS=-Xmx128m
