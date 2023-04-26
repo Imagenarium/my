@@ -27,7 +27,7 @@ fi
 export SPRING_PROFILES_ACTIVE=${FEATURES}
 
 echo "Login to Imagenarium registry..."
-docker login registry.gitlab.com -u gitlab+deploy-token-10171 -p eKUxz4BsWFE95T9WNVV2
+docker login registry.gitlab.com -u read_distrib_registry -p EezQwERFJX_MUhoGW1dJ
 
 curNode=$(docker info | grep NodeID | head -n1 | awk '{print $2;}')
 docker node update --label-add imagenarium=true $curNode
