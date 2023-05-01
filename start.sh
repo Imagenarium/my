@@ -26,9 +26,6 @@ fi
 
 export SPRING_PROFILES_ACTIVE=${FEATURES}
 
-echo "Login to Imagenarium registry..."
-docker login registry.gitlab.com -u read_distrib_registry -p EezQwERFJX_MUhoGW1dJ
-
 curNode=$(docker info | grep NodeID | head -n1 | awk '{print $2;}')
 docker node update --label-add imagenarium=true $curNode
 docker node update --label-add _dataPathAddr=172.17.0.1 $curNode
@@ -55,10 +52,7 @@ docker service create --name clustercontrol \
 --mount "type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock" \
 --mount "type=bind,source=$HOME/.img,target=/root/.docker" \
 --mount "type=volume,destination=/tmp" \
-registry.gitlab.com/imagenarium/distrib/clustercontrol:${VERSION}
-
-echo "Logout from Imagenarium registry..."
-docker logout registry.gitlab.com
+quay.io/imagenarium/clustercontrol:${VERSION}
 
 while true; do
   curl -sf http://127.0.0.1:5555 > /dev/null
