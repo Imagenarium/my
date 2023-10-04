@@ -27,6 +27,11 @@ fi
 export SPRING_PROFILES_ACTIVE=${FEATURES}
 
 dataPathAddr=$(docker run --rm --platform linux/amd64 -ti toolbelt/dig +short host.docker.internal | tr -d "\n\r")
+
+if [[ "$dataPathAddr" == "" ]]; then
+  dataPathAddr="172.17.0.1"
+fi
+
 curNode=$(docker info | grep NodeID | head -n1 | awk '{print $2;}')
 docker node update --label-add imagenarium=true $curNode
 docker node update --label-add _dataPathAddr=${dataPathAddr} $curNode
