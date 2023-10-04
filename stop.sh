@@ -2,7 +2,6 @@
 
 set +e
 
-
 function stopService {
   echo "Stopping $1..."
 
