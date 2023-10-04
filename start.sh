@@ -26,9 +26,10 @@ fi
 
 export SPRING_PROFILES_ACTIVE=${FEATURES}
 
+dataPathAddr=$(docker run --rm --platform linux/amd64 -ti toolbelt/dig +short host.docker.internal | tr -d "\n\r")
 curNode=$(docker info | grep NodeID | head -n1 | awk '{print $2;}')
 docker node update --label-add imagenarium=true $curNode
-docker node update --label-add _dataPathAddr=${DATA_PATH_ADDR} $curNode
+docker node update --label-add _dataPathAddr=${dataPathAddr} $curNode
 
 mkdir $HOME/.img &> /dev/null || true
 
@@ -37,7 +38,7 @@ docker service create --name clustercontrol \
 --with-registry-auth \
 --network clustercontrol-net \
 --log-driver=json-file --log-opt max-size=10m --log-opt max-file=10 \
---publish mode=host,target=8080,published=5555 \
+--publish mode=host,target=8080,published=${IMG_PORT} \
 -e "SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}" \
 -e "IMAGE_GRACE_PERIOD=${IMAGE_GRACE_PERIOD}" \
 -e "CONTAINER_GRACE_PERIOD=${CONTAINER_GRACE_PERIOD}" \
@@ -55,7 +56,7 @@ docker service create --name clustercontrol \
 quay.io/imagenarium/clustercontrol:${VERSION}
 
 while true; do
-  curl -sf http://127.0.0.1:5555 > /dev/null
+  curl -sf http://127.0.0.1:${IMG_PORT} > /dev/null
 
   status=$?
 
