@@ -38,6 +38,8 @@ docker node update --label-add _dataPathAddr=${dataPathAddr} $curNode
 
 mkdir $HOME/.img &> /dev/null || true
 
+OS_TYPE=$(uname)
+
 docker service create --name clustercontrol \
 --endpoint-mode dnsrr \
 --with-registry-auth \
@@ -51,6 +53,7 @@ docker service create --name clustercontrol \
 -e "JAVA_OPTS=${JAVA_OPTS}" \
 -e "AGENT_JAVA_OPTS=${AGENT_JAVA_OPTS}" \
 -e "DOCKER_CONFIG_HOME=$HOME/.img" \
+-e "OS_TYPE=${OS_TYPE}" \
 --container-label "co.elastic.logs/enabled=true" \
 --container-label "co.elastic.logs/system=true" \
 --container-label "co.elastic.logs/replicas=1" \
